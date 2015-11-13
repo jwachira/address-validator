@@ -32,7 +32,7 @@ module AddressValidator
 
     attr_accessor :name, :street1, :city, :state, :zip, :country, :classification
 
-    def initialize(name, street1, city, state, zip, country, classification)
+    def initialize(name = name, street1 = street1, city = city, state = state, zip = zip, country = country, classification = classification)
       @name = name
       @street1 = street1
       @city = city
@@ -50,16 +50,16 @@ module AddressValidator
       classification == CLASSIFICATION_COMMERCIAL
     end
 
-    def to_xml(options = {})
+    def to_xml(options={})
       xml = Builder::XmlMarkup.new(options)
 
       xml.AddressKeyFormat do
-        xml.ConsigneeName(name)
-        xml.AddressLine(street1)
-        xml.PoliticalDivision2(city)
-        xml.PoliticalDivision1(state)
-        xml.PostcodePrimaryLow(zip)
-        xml.CountryCode(country)
+        xml.ConsigneeName(self.name)
+        xml.AddressLine(self.street1)
+        xml.PoliticalDivision2(self.city)
+        xml.PoliticalDivision1(self.state)
+        xml.PostcodePrimaryLow(self.zip)
+        xml.CountryCode(self.country)
       end
 
       xml.target!
